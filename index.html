@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyL Haircare | Catálogo Completo</title>
+    
+    <style>
+        :root {
+            --fondo-pagina: #E0F7FA;
+            --fondo-header: #B3E5FC;
+            --texto-principal: #0d47a1;
+            --color-botones: #81D4FA;
+            --borde-header: #1565C0;
+            --borde-tarjeta: #002171;
+        }
+
+        body {
+            background-color: var(--fondo-pagina);
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            color: var(--texto-principal);
+            scroll-behavior: smooth;
+        }
+
+        /* --- HEADER --- */
+        .header-banner {
+            background-color: var(--fondo-header);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 5%;
+            border-bottom: 5px solid var(--borde-header);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-box { display: flex; align-items: center; }
+        .logo-box img { 
+            width: 100px; 
+            filter: contrast(1.1) brightness(0.95) drop-shadow(0px 2px 4px rgba(0,0,0,0.2));
+            margin-right: 15px;
+        }
+
+        .menu-botones a {
+            text-decoration: none;
+            color: black;
+            background-color: var(--color-botones);
+            padding: 10px 20px;
+            border: 2px solid black;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        /* --- SECCIÓN INICIO (RECUPERADA) --- */
+        #inicio {
+            min-height: 80vh;
+            display: flex;
+            align-items: flex-start; 
+            justify-content: center;
+            padding: 40px 5%;
+        }
+
+        .tarjeta-bienvenida {
+            background-color: white;
+            width: 1000px;
+            min-height: 450px;
+            border-radius: 20px;
+            border: 1.5px solid var(--borde-tarjeta);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            display: flex;
+            overflow: hidden;
+        }
+
+        .decoracion-lateral {
+            flex: 0 0 350px;
+            background-image: url('Cuidado del cabello.jpg'); 
+            background-size: cover;
+            background-position: center;
+            border-right: 1.5px solid var(--borde-tarjeta);
+        }
+
+        .contenido-tarjeta {
+            flex: 1;
+            padding: 60px 80px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .contenido-tarjeta h2 { font-size: 40px; color: var(--borde-header); margin-bottom: 20px; }
+        #texto-bienvenida { font-size: 24px; line-height: 1.6; margin: 0; min-height: 120px; }
+
+        /* --- SECCIÓN PRODUCTOS --- */
+        .seccion-productos { padding: 60px 5%; text-align: center; background-color: #B2EBF2; }
+        
+        .titulo-categoria {
+            font-size: 32px;
+            color: var(--borde-header);
+            margin: 40px 0 20px;
+            border-bottom: 3px solid var(--borde-header);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .contenedor-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .producto-card {
+            background-color: white;
+            border: 1.5px solid var(--borde-tarjeta);
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .producto-card:hover { transform: translateY(-10px); }
+        .producto-card img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1.5px solid var(--borde-tarjeta); }
+        .producto-card h3 { padding: 10px; font-size: 18px; margin: 0; }
+
+        /* --- MODAL --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-contenido {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            border: 2px solid var(--borde-tarjeta);
+        }
+
+        .precio-tag { font-size: 28px; font-weight: bold; color: #2e7d32; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+    <header class="header-banner">
+        <div class="logo-box">
+            <img src="Logo.png" alt="Logo">
+            <h1>MyL Haircare</h1>
+        </div>
+        <nav class="menu-botones">
+            <a href="#inicio">Inicio</a>
+            <a href="#productos">Productos</a>
+        </nav>
+    </header>
+
+    <section id="inicio">
+        <div class="tarjeta-bienvenida">
+            <div class="decoracion-lateral"></div>
+            <div class="contenido-tarjeta">
+                <h2>Bienvenida</h2>
+                <p id="texto-bienvenida"></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="productos" class="seccion-productos">
+        <h2 style="font-size: 45px;">Nuestros Productos</h2>
+
+        <div class="titulo-categoria">Línea de Shampoos</div>
+        <div class="contenedor-productos">
+            <div class="producto-card" onclick="abrirDetalles('Shampoo de Cebolla', '$6.500', 'Estimula el crecimiento y fortalece.', 'Limpieza profunda que ayuda al crecimiento natural.')">
+                <img src="Shampoo.jpg"><h3>Shampoo de Cebolla</h3>
+            </div>
+            <div class="producto-card" onclick="abrirDetalles('Shampoo Matizador', '$5.500', 'Para cabellos rubios, con mechas o canas.', 'Neutraliza los tonos amarillos y mantiene el color.')">
+                <img src="Shampoo.jpg"><h3>Shampoo Matizador</h3>
+            </div>
+            <div class="producto-card" onclick="abrirDetalles('Shampoo Keune Absolute Volume', 'Consultar', 'Línea profesional de alta gama.', 'Aporta cuerpo y volumen sin dejar el cabello pesado.')">
+                <img src="Shampoo.jpg"><h3>Shampoo Keune Care</h3>
+            </div>
+        </div>
+
+        <div class="titulo-categoria">Cremas y Tratamientos</div>
+        <div class="contenedor-productos">
+            <div class="producto-card" onclick="abrirDetalles('Botox Capilar (Ricino/Argán/Jojoba/Coco)', '$6.500', 'Hidratación profunda con aceites naturales.', 'Repara la fibra capilar, aporta brillo y quita el frizz.')">
+                <img src="Shampoo.jpg"><h3>Botox Capilar</h3>
+            </div>
+            <div class="producto-card" onclick="abrirDetalles('Crema Reparación Total', '$10.000', 'Fórmula avanzada para cabello dañado.', 'Repara puntas abiertas y devuelve la suavidad.')">
+                <img src="Shampoo.jpg"><h3>Crema Reparación Total</h3>
+            </div>
+            <div class="producto-card" onclick="abrirDetalles('Crema Selladora Color', '$10.000', 'Protección de color post-tintura.', 'Sella la cutícula para que el color dure más tiempo.')">
+                <img src="Shampoo.jpg"><h3>Crema Selladora Color</h3>
+            </div>
+            <div class="producto-card" onclick="abrirDetalles('Crema de Cebolla', '$5.500', 'Fortalecimiento intensivo.', 'Fortalece la hebra capilar desde la raíz.')">
+                <img src="Shampoo.jpg"><h3>Crema de Cebolla</h3>
+            </div>
+            <div class="producto-card" onclick="abrirDetalles('Crema Matizadora', '$5.500', 'Hidratación y color.', 'Complemento del shampoo para mantener rubios perfectos.')">
+                <img src="Shampoo.jpg"><h3>Crema Matizadora</h3>
+            </div>
+        </div>
+
+        <div class="titulo-categoria">Cuidado Especial</div>
+        <div class="contenedor-productos">
+            <div class="producto-card" onclick="abrirDetalles('Protector de Calor', '$6.500', 'Escudo térmico invisible.', 'Protege contra el calor de planchas y secadores.')">
+                <img src="Shampoo.jpg"><h3>Protector de Calor</h3>
+            </div>
+            <div class="producto-card" onclick="abrirDetalles('Acondicionador Cebolla', '$6.500', 'Desenredante y fortalecedor.', 'Deja el cabello suave y fácil de peinar.')">
+                <img src="Shampoo.jpg"><h3>Acondicionador Cebolla</h3>
+            </div>
+            <div class="producto-card" onclick="abrirDetalles('Sérum de Cebolla', '$4.000', 'Aceite concentrado.', 'Aporta brillo y nutrición extra.')">
+                <img src="Shampoo.jpg"><h3>Sérum de Cebolla</h3>
+            </div>
+            <div class="producto-card" onclick="abrirDetalles('Sérum Capilar Botox', '$4.000', 'Sellador de puntas.', 'Elimina el frizz y da un acabado sedoso.')">
+                <img src="Shampoo.jpg"><h3>Sérum Capilar Botox</h3>
+            </div>
+            <div class="producto-card" onclick="abrirDetalles('Ampolla Anti-frizz', '$2.500', 'Tratamiento flash.', 'Efecto liso y disciplinado inmediato.')">
+                <img src="Shampoo.jpg"><h3>Ampolla Anti-frizz</h3>
+            </div>
+        </div>
+    </section>
+
+    <div id="miModal" class="modal">
+        <div class="modal-contenido">
+            <h2 id="modalTitulo"></h2>
+            <p class="precio-tag" id="modalPrecio"></p>
+            <p><strong>Propiedades:</strong> <br><span id="modalPropiedades"></span></p>
+            <p style="margin-top:10px;"><strong>¿Para qué sirve?:</strong> <br><span id="modalUso"></span></p>
+            <button onclick="cerrarDetalles()" style="margin-top:20px; padding: 10px 20px; cursor:pointer; font-weight:bold; border-radius:15px; background:var(--color-botones);">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        // MÁQUINA DE ESCRIBIR
+        const textoCompleto = "En MyL-Haircare nos dedicamos a la venta de productos para el cuidado de nuestro cabello. Aquí podrás encontrar productos relacionados al lavado, hidratación y reparación de nuestra cabellera.";
+        const elementoTexto = document.getElementById("texto-bienvenida");
+        let indice = 0;
+        function escribirTexto() {
+            if (indice < textoCompleto.length) {
+                elementoTexto.innerHTML += textoCompleto.charAt(indice);
+                indice++;
+                setTimeout(escribirTexto, 25);
+            }
+        }
+
+        // MODAL
+        function abrirDetalles(titulo, precio, propiedades, uso) {
+            document.getElementById('modalTitulo').innerText = titulo;
+            document.getElementById('modalPrecio').innerText = precio;
+            document.getElementById('modalPropiedades').innerText = propiedades;
+            document.getElementById('modalUso').innerText = uso;
+            document.getElementById('miModal').style.display = 'flex';
+        }
+        function cerrarDetalles() {
+            document.getElementById('miModal').style.display = 'none';
+        }
+        
+        window.onload = escribirTexto;
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('miModal')) cerrarDetalles();
+        }
+    </script>
+</body>
+</html>
